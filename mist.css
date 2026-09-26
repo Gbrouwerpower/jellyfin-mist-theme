@@ -1,0 +1,1157 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap");
+
+/* =====================================================================
+   MIST — a refined, pastel-blue theme for Jellyfin Web 12.x (works on 10.11 too)
+   Install: Dashboard → Branding → Custom CSS (server-wide), or
+            Settings → Display → Custom CSS (just you).
+   Keep the @import on the very first line of the box, and remove any
+   other theme (e.g. the old amber "Nocturne") so they don't fight.
+   Set each client's Theme to "Dark".
+   Contrast (WCAG 2.2): text 16:1, muted 8.9:1, sky accent 10.6:1,
+   dark text on sky buttons ~10:1.
+   ===================================================================== */
+
+:root {
+  --mist-font: "Figtree", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --mist-bg:          #10151D;
+  --mist-surface:     #171D28;
+  --mist-surface-2:   #1F2634;
+  --mist-surface-3:   #29324A;
+  --mist-line:        rgba(190, 210, 240, 0.10);
+  --mist-line-strong: rgba(190, 210, 240, 0.22);
+
+  --mist-text:        #E8EEF6;
+  --mist-text-soft:   #D5DDE8;
+  --mist-text-muted:  #A9B6C8;
+
+  --mist-sky:         #9CCBF0;
+  --mist-sky-hover:   #B7DAF5;
+  --mist-sky-soft:    rgba(156, 203, 240, 0.14);
+  --mist-periwinkle:  #B4C0F5;
+  --mist-on-sky:      #0E1320;
+
+  --mist-danger:      #F4A3A8;
+
+  /* spacing scale */
+  --mist-gutter:      clamp(16px, 3.2vw, 56px);   /* page side margins */
+  --mist-space-1:     4px;
+  --mist-space-2:     8px;
+  --mist-space-3:     12px;
+  --mist-space-4:     16px;
+  --mist-space-5:     24px;
+  --mist-space-6:     32px;
+  --mist-space-7:     48px;
+  --mist-card-gap:    10px;                         /* between posters */
+
+  --mist-radius-sm:   6px;
+  --mist-radius:      8px;
+  --mist-radius-lg:   16px;
+  --mist-shadow:      0 8px 18px -10px rgba(0, 0, 0, 0.7);
+  --mist-ease:        cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ---------- Jellyfin 12 native tokens ----------
+   Jellyfin 12's React/MUI screens (header, menus, settings forms,
+   checkboxes) read these variables, so setting them makes the whole
+   app pick up the palette natively. */
+:root,
+html[data-theme="dark"],
+[data-theme="dark"] {
+  --jf-palette-primary-main: #9CCBF0;
+  --jf-palette-primary-light: #B7DAF5;
+  --jf-palette-primary-dark: #7AB3E3;
+  --jf-palette-primary-contrastText: #0E1320;
+  --jf-palette-primary-mainChannel: 156 203 240;
+  --jf-palette-primary-lightChannel: 183 218 245;
+  --jf-palette-primary-darkChannel: 122 179 227;
+  --jf-palette-primary-contrastTextChannel: 14 19 32;
+
+  --jf-palette-secondary-main: #B4C0F5;
+  --jf-palette-secondary-light: #CBD3F8;
+  --jf-palette-secondary-dark: #8F9EE6;
+  --jf-palette-secondary-contrastText: #0E1320;
+  --jf-palette-secondary-mainChannel: 180 192 245;
+  --jf-palette-secondary-lightChannel: 203 211 248;
+  --jf-palette-secondary-darkChannel: 143 158 230;
+  --jf-palette-secondary-contrastTextChannel: 14 19 32;
+
+  --jf-palette-background-default: #10151D;
+  --jf-palette-background-paper: #171D28;
+  --jf-palette-background-defaultChannel: 16 21 29;
+  --jf-palette-background-paperChannel: 23 29 40;
+  --jf-palette-AppBar-defaultBg: #10151D;
+  --jf-palette-AppBar-darkBg: #10151D;
+
+  --jf-palette-text-primary: #E8EEF6;
+  --jf-palette-text-secondary: #A9B6C8;
+  --jf-palette-divider: rgba(190, 210, 240, 0.12);
+
+  --jf-palette-action-hover: rgba(190, 210, 240, 0.08);
+  --jf-palette-action-selected: rgba(156, 203, 240, 0.16);
+  --jf-palette-action-focus: rgba(156, 203, 240, 0.16);
+
+  --jf-palette-error-main: #F4A3A8;
+  --jf-palette-error-contrastText: #0E1320;
+
+  --jf-shape-borderRadius: 8px;
+
+  --jf-font-h1: 700 1.8rem/1.2 var(--mist-font);
+  --jf-font-h2: 600 1.5rem/1.25 var(--mist-font);
+  --jf-font-h3: 600 1.17rem/1.3 var(--mist-font);
+  --jf-font-h4: 600 2.125rem/1.235 var(--mist-font);
+  --jf-font-h5: 600 1.5rem/1.334 var(--mist-font);
+  --jf-font-h6: 600 1.25rem/1.4 var(--mist-font);
+  --jf-font-subtitle1: 500 1rem/1.6 var(--mist-font);
+  --jf-font-subtitle2: 500 0.875rem/1.57 var(--mist-font);
+  --jf-font-body1: 400 1rem/1.6 var(--mist-font);
+  --jf-font-body2: 400 0.875rem/1.55 var(--mist-font);
+  --jf-font-button: 600 0.875rem/1.75 var(--mist-font);
+  --jf-font-caption: 400 0.78rem/1.6 var(--mist-font);
+  --jf-font-overline: 600 0.75rem/2.4 var(--mist-font);
+}
+
+/* MUI surfaces: drop the grey "elevation overlay" so menus and
+   dialogs stay blue-slate instead of turning washed-out grey */
+.MuiPaper-root {
+  background-image: none !important;
+  background-color: var(--mist-surface);
+  color: var(--mist-text);
+}
+.MuiPopover-paper, .MuiMenu-paper, .MuiDialog-paper {
+  border: 1px solid var(--mist-line);
+  border-radius: 12px !important;
+  box-shadow: var(--mist-shadow) !important;
+}
+.MuiAppBar-root { background-color: transparent !important; box-shadow: none !important; }
+.MuiMenuItem-root { border-radius: var(--mist-radius-sm); margin: 0 6px; }
+.MuiMenuItem-root:hover { background-color: var(--mist-surface-3); }
+.MuiListSubheader-root {
+  background: transparent !important;
+  color: var(--mist-text-muted) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.MuiDivider-root { border-color: var(--mist-line) !important; }
+.MuiButton-root { text-transform: none !important; letter-spacing: 0; }
+.MuiButton-containedPrimary { box-shadow: none !important; }
+.MuiButton-containedPrimary:hover { background-color: var(--mist-sky-hover) !important; }
+.MuiFilledInput-root {
+  background-color: var(--mist-surface-2) !important;
+  border-radius: var(--mist-radius-sm) !important;
+  border: 1px solid var(--mist-line-strong);
+}
+.MuiFilledInput-root::before, .MuiFilledInput-root::after { display: none; }
+.MuiFilledInput-root.Mui-focused {
+  border-color: var(--mist-sky);
+  box-shadow: 0 0 0 3px var(--mist-sky-soft);
+}
+.MuiFormHelperText-root, .MuiInputLabel-root { color: var(--mist-text-muted); }
+.MuiInputLabel-root.Mui-focused { color: var(--mist-sky); }
+.MuiAvatar-root { background-color: var(--mist-surface-3); color: var(--mist-sky); }
+.MuiTooltip-tooltip {
+  background: var(--mist-surface-3) !important;
+  color: var(--mist-text) !important;
+  font-family: var(--mist-font);
+}
+
+/* ---------- Base & typography ---------- */
+html, body, .skinBody, .backgroundContainer {
+  background-color: var(--mist-bg);
+  color: var(--mist-text);
+}
+body, button, input, select, textarea,
+.emby-button, .emby-input, .emby-select, .emby-textarea,
+.cardText, .listItemBodyText, .navMenuOptionText, .sectionTitle, .pageTitle,
+.MuiTypography-root, .MuiButton-root, .MuiInputBase-root, .MuiMenuItem-root {
+  font-family: var(--mist-font) !important;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "tnum" 0;
+}
+.itemMiscInfo, .cardText-secondary, .listItemBodyText.secondary,
+.mediaInfoItem, .itemProgressBar, .countIndicator {
+  font-variant-numeric: tabular-nums;
+}
+
+.backgroundContainer.withBackdrop { background-color: rgba(16, 21, 29, 0.86); }
+
+::selection { background: var(--mist-sky); color: var(--mist-on-sky); }
+a, .button-link { color: var(--mist-sky); }
+a:hover, .button-link:hover { color: var(--mist-sky-hover); }
+
+h1, h2, h3 { letter-spacing: -0.015em; }
+.sectionTitle, .sectionTitle-cards {
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  color: var(--mist-text);
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--mist-surface-3) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--mist-surface-3);
+  border-radius: 10px;
+  border: 2px solid var(--mist-bg);
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- Focus (keyboard & TV remotes) ---------- */
+:focus-visible { outline: 2px solid var(--mist-sky) !important; outline-offset: 2px; }
+.card:focus-visible { outline: none !important; }
+.card:focus-visible .cardScalable,
+.card.show-focus:focus .cardScalable {
+  outline: 2px solid var(--mist-sky) !important;
+  outline-offset: 3px;
+}
+
+/* ---------- Header ---------- */
+.skinHeader,
+.skinHeader-withBackground {
+  background-color: rgba(16, 21, 29, 0.78) !important;
+  border-bottom: 1px solid var(--mist-line);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  backdrop-filter: saturate(140%) blur(14px);
+}
+.skinHeader.semiTransparent { border-bottom-color: transparent; }
+.pageTitle { font-weight: 600; letter-spacing: -0.01em; }
+
+.emby-tab-button {
+  color: var(--mist-text-muted);
+  font-weight: 500;
+  border-radius: var(--mist-radius-sm);
+  transition: color .15s var(--mist-ease), background-color .15s var(--mist-ease);
+}
+.emby-tab-button:hover { color: var(--mist-text); background: var(--mist-line); }
+.emby-tab-button-active,
+.emby-tab-button.emby-tab-button-active {
+  color: var(--mist-text) !important;
+  box-shadow: inset 0 -2px 0 var(--mist-sky);
+}
+
+/* ---------- Side drawer ---------- */
+.mainDrawer {
+  background-color: var(--mist-surface) !important;
+  border-right: 1px solid var(--mist-line);
+}
+.navMenuOption {
+  color: var(--mist-text-muted);
+  border-radius: var(--mist-radius-sm);
+  margin: 1px 0.6em;
+  transition: background-color .15s var(--mist-ease), color .15s var(--mist-ease);
+}
+.navMenuOption:hover { background-color: var(--mist-surface-3); color: var(--mist-text); }
+.navMenuOption-selected,
+.navMenuOption-selected:hover {
+  background-color: var(--mist-sky-soft) !important;
+  color: var(--mist-text) !important;
+}
+.navMenuOption-selected .navMenuOptionIcon { color: var(--mist-sky); }
+.sidebarHeader {
+  color: var(--mist-text-muted);
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sidebarDivider { background: var(--mist-line); }
+
+/* ---------- Cards & posters ----------
+   One rounded frame (.cardScalable) clips everything inside it —
+   image, watched badge, progress bar, hover overlay — so corners are
+   always clean and concentric. Inner layers are reset to square. */
+.cardBox { background: transparent !important; box-shadow: none !important; }
+.cardScalable {
+  position: relative;
+  border-radius: var(--mist-radius) !important;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--mist-surface-2);
+  transition: box-shadow .2s var(--mist-ease), transform .2s var(--mist-ease);
+}
+.cardScalable > .cardImageContainer,
+.cardScalable > .cardContent,
+.cardScalable .cardImage,
+.cardScalable .cardOverlayContainer,
+.cardScalable .cardImageContainer img {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+/* hairline drawn inside the frame so it never doubles up at the corners */
+.cardScalable::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--mist-line);
+  pointer-events: none;
+  z-index: 3;
+}
+.card-hoverable:hover .cardScalable { box-shadow: var(--mist-shadow); }
+.card-hoverable:hover .cardScalable::after { box-shadow: inset 0 0 0 1px var(--mist-line-strong); }
+
+/* Devices with animations off (the Xbox app) get Jellyfin's fallback
+   focus style: a thick transparent border on every poster, which let
+   the poster background show as a band inside the focus ring. The sky
+   outline is the focus indicator instead, so drop the border. */
+.card.show-focus:not(.show-animation) .cardBox.visualCardBox,
+.card.show-focus:not(.show-animation) .cardBox:not(.visualCardBox) .cardScalable {
+  border: 0 !important;
+}
+
+/* round cards stay round (cast & crew, user avatars) */
+.personCard .cardScalable.round,
+.cardScalable.round,
+.card.round .cardScalable { border-radius: 50% !important; }
+
+.cardText { color: var(--mist-text); font-weight: 500; }
+.cardText-secondary, .cardText-secondary > * { color: var(--mist-text-muted) !important; font-weight: 400; }
+.defaultCardBackground { background-color: var(--mist-surface-2) !important; }
+
+/* badges sit neatly inside the corner instead of hugging the edge */
+.cardIndicators { top: 8px !important; right: 8px !important; }
+.playedIndicator, .countIndicator {
+  background: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.itemProgressBar { background: rgba(0, 0, 0, 0.55); height: 4px !important; }
+.itemProgressBarForeground { background-color: var(--mist-sky) !important; }
+.innerCardFooter { border-radius: 0 !important; }
+
+.emby-scrollbuttons-button { color: var(--mist-text-muted); }
+.emby-scrollbuttons-button:hover { color: var(--mist-text); }
+
+/* ---------- Item detail page ---------- */
+.itemName.infoText, .detailPagePrimaryContainer .itemName {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.itemMiscInfo, .itemMiscInfo-secondary, .itemGenres, .itemTags {
+  color: var(--mist-text-muted);
+}
+.overview, .detail-clamp-text {
+  color: var(--mist-text-soft);
+  line-height: 1.6;
+  max-width: 72ch;
+}
+.mediaInfoOfficialRating {
+  border-color: var(--mist-line-strong) !important;
+  border-radius: 4px;
+}
+.detailButton { border-radius: 999px; transition: background-color .15s var(--mist-ease); }
+.detailButton:hover { background: var(--mist-surface-3); }
+.detailButton.btnPlay, .mainDetailButtons .btnPlay {
+  background: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+}
+.detailButton.btnPlay:hover { background: var(--mist-sky-hover) !important; }
+
+/* Info strip under the backdrop: frosted blue-slate instead of grey */
+.detailRibbon {
+  background: rgba(23, 29, 40, 0.82) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--mist-line);
+  border-bottom: 1px solid var(--mist-line);
+}
+.layout-tv .detailRibbon { background: none !important; backdrop-filter: none; border: 0; }
+.detailPagePrimaryContainer, .detailPageSecondaryContainer,
+.noBackdropTransparency .detailPagePrimaryContainer,
+.noBackdropTransparency .detailPageSecondaryContainer {
+  background-color: var(--mist-bg) !important;
+}
+
+/* Desktop detail layout: the big poster sits on the page gutter, and
+   the title, info line and synopsis share one edge to its right.
+   (The strip already starts beside the floated poster, 25vw in.) */
+.layout-desktop { --mist-detail-col: calc(var(--mist-gutter) + 25vw + 48px); }
+.layout-desktop .detailImageContainer .card { left: var(--mist-gutter) !important; }
+.layout-desktop .itemDetailPage .detailRibbon { padding-left: var(--mist-detail-col) !important; }
+.layout-desktop .itemDetailPage .detailPagePrimaryContent { padding-left: var(--mist-detail-col) !important; }
+.detailImageContainer .cardScalable { box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8); }
+.detailRibbon .infoWrapper { min-width: 0; }
+.detailRibbon .itemName { white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+.detailRibbon .mainDetailButtons { flex-shrink: 0; }
+
+/* ---------- Audio & subtitle pickers ----------
+   Soft rounded fields with a quiet label column, a sky chevron and a
+   clear focus ring; read-only rows (like Video) stay plain text. */
+.trackSelections .selectContainer {
+  align-items: center !important;
+  gap: 16px;
+  margin: 0 0 10px !important;
+}
+.trackSelections .selectContainer .selectLabel {
+  flex: 0 0 7em !important;
+  margin: 0 !important;
+  color: var(--mist-text-muted) !important;
+  font-size: 0.8em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.trackSelections .selectContainer .detailTrackSelect {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none !important;
+  min-height: 2.6em !important;
+  padding: 0 2.8em 0 1em !important;
+  background-color: var(--mist-surface-2) !important;
+  border: 1px solid var(--mist-line-strong) !important;
+  border-radius: 10px !important;
+  color: var(--mist-text) !important;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color .15s var(--mist-ease), background-color .15s var(--mist-ease), box-shadow .15s var(--mist-ease);
+}
+.trackSelections .selectContainer .detailTrackSelect:hover:not([disabled]) {
+  background-color: var(--mist-surface-3) !important;
+  border-color: var(--mist-text-muted) !important;
+}
+.trackSelections .selectContainer .detailTrackSelect:focus,
+.layout-tv .trackSelections .selectContainer .detailTrackSelect:focus {
+  border-color: var(--mist-sky) !important;
+  background-color: var(--mist-surface-3) !important;
+  box-shadow: 0 0 0 4px var(--mist-sky-soft) !important;
+  outline: none !important;
+}
+.trackSelections .selectContainer .detailTrackSelect[disabled] {
+  background: transparent !important;
+  border-color: transparent !important;
+  padding-left: 0 !important;
+  color: var(--mist-text-soft) !important;
+  cursor: default;
+  min-height: 0 !important;
+}
+.trackSelections .selectContainer .selectArrowContainer {
+  position: absolute;
+  right: 0.9em;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%);
+  color: var(--mist-sky) !important;
+  pointer-events: none;
+}
+.trackSelections .selectContainer { position: relative; max-width: 40em !important; }
+.trackSelections .selectContainer .selectArrowContainer .selectArrow { font-size: 1.3em !important; margin: 0 !important; }
+.trackSelections .selectContainer .detailTrackSelect[disabled] + .selectArrowContainer { display: none; }
+
+/* ---------- Buttons ---------- */
+.emby-button.raised, .raised {
+  background: var(--mist-surface-2);
+  color: var(--mist-text);
+  border: 1px solid var(--mist-line);
+  border-radius: var(--mist-radius-sm);
+  box-shadow: none;
+  font-weight: 500;
+}
+.emby-button.raised:hover, .raised:hover { background: var(--mist-surface-3); }
+
+.button-submit, .button-submit:focus, .emby-button.button-submit {
+  background: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+  border: none;
+  font-weight: 600;
+}
+.button-submit:hover { background: var(--mist-sky-hover) !important; }
+.button-delete, .btnDelete { background: var(--mist-danger); color: var(--mist-on-sky); }
+
+.button-flat:hover,
+.paper-icon-button-light:hover:not(:disabled) {
+  color: var(--mist-text);
+  background-color: var(--mist-line);
+}
+
+/* ---------- Forms ---------- */
+.emby-input, .emby-textarea, .emby-select, .emby-select-withcolor {
+  background-color: var(--mist-surface-2) !important;
+  color: var(--mist-text) !important;
+  border: 1px solid var(--mist-line-strong) !important;
+  border-radius: var(--mist-radius-sm) !important;
+  min-height: 2.75em;
+  transition: border-color .15s var(--mist-ease), box-shadow .15s var(--mist-ease);
+}
+.emby-input:hover, .emby-textarea:hover, .emby-select:hover { border-color: var(--mist-text-muted) !important; }
+.emby-input:focus, .emby-textarea:focus, .emby-select:focus {
+  border-color: var(--mist-sky) !important;
+  box-shadow: 0 0 0 3px var(--mist-sky-soft);
+  outline: none !important;
+}
+.inputLabel, .selectLabel, .textareaLabel, .fieldDescription { color: var(--mist-text-muted); }
+.inputLabelFocused, .selectLabelFocused, .textareaLabelFocused { color: var(--mist-sky); }
+
+.checkboxOutline { border-color: var(--mist-text-muted); border-radius: 4px; }
+.emby-checkbox:checked + span + .checkboxOutline {
+  background-color: var(--mist-sky);
+  border-color: var(--mist-sky);
+}
+.emby-checkbox:checked + span + .checkboxOutline > .checkboxIcon-checked { color: var(--mist-on-sky); }
+.emby-checkbox:focus-visible + span + .checkboxOutline { box-shadow: 0 0 0 3px var(--mist-sky-soft); }
+
+.mdl-switch__input:checked + .mdl-switch__label + .mdl-switch__track { background-color: rgba(156, 203, 240, 0.5); }
+.mdl-switch__input:checked ~ .mdl-switch__thumb { background: var(--mist-sky); }
+
+/* ---------- Lists, dialogs, menus ---------- */
+.paperList {
+  background-color: var(--mist-surface);
+  border: 1px solid var(--mist-line);
+  border-radius: var(--mist-radius);
+}
+.listItem { border-radius: var(--mist-radius-sm); }
+.listItem:hover, .listItem:focus-visible { background-color: var(--mist-surface-3); }
+.listItemBodyText.secondary, .secondary { color: var(--mist-text-muted); }
+
+.dialog, .actionSheet, .formDialogHeader, .formDialogFooter {
+  background-color: var(--mist-surface) !important;
+  color: var(--mist-text);
+}
+.dialog {
+  border: 1px solid var(--mist-line);
+  border-radius: var(--mist-radius-lg);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+.dialog.dialog-fullscreen { border-radius: 0; }
+.formDialogHeader { border-bottom: 1px solid var(--mist-line); }
+.formDialogFooter { border-top: 1px solid var(--mist-line); }
+.dialogBackdropOpened { background-color: rgba(6, 9, 14, 0.7); }
+.actionSheetMenuItem:hover { background-color: var(--mist-surface-3); }
+
+.toast {
+  background: var(--mist-surface-3);
+  color: var(--mist-text);
+  border-radius: var(--mist-radius);
+  box-shadow: var(--mist-shadow);
+}
+
+/* ---------- Now-playing bar ---------- */
+.nowPlayingBar {
+  background-color: rgba(23, 29, 40, 0.92);
+  border-top: 1px solid var(--mist-line);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* ---------- Video player ----------
+   The top overlay fades over the picture instead of being a solid
+   header, and the bottom controls use a short fade (Jellyfin's stock
+   150px fade covered nearly a third of the screen on a TV). */
+.skinHeader.osdHeader,
+.layout-tv .skinHeader.osdHeader {
+  background-color: transparent !important;
+  background-image: linear-gradient(180deg, rgba(8, 11, 16, 0.7), rgba(8, 11, 16, 0)) !important;
+  border-bottom: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  padding-bottom: 40px !important;
+}
+.videoOsdBottom {
+  background: linear-gradient(0deg, rgba(8, 11, 16, 0.82) 0%, rgba(8, 11, 16, 0.55) 45%, rgba(8, 11, 16, 0) 100%) !important;
+  padding-top: 40px !important;
+  padding-bottom: 24px !important;
+}
+.layout-tv .videoOsdBottom {
+  padding-left: var(--mist-gutter) !important;
+  padding-right: var(--mist-gutter) !important;
+  padding-bottom: 32px !important;
+}
+.videoOsdBottom .osdControls { padding: 0 !important; }
+.videoOsdBottom .buttons { padding: 0 !important; margin-top: 4px; }
+.osdTextContainer, .osdMediaInfo { color: var(--mist-text) !important; }
+
+/* seek bar in the palette */
+.mdl-slider-background-lower { background-color: var(--mist-sky) !important; }
+.mdl-slider-background-upper { background-color: rgba(232, 238, 246, 0.25) !important; }
+.mdl-slider::-webkit-slider-thumb { background: var(--mist-sky) !important; }
+.mdl-slider::-moz-range-thumb { background: var(--mist-sky) !important; }
+.sliderMarker { background-color: rgba(232, 238, 246, 0.45) !important; }
+.sliderMarker.watched { background-color: var(--mist-on-sky) !important; }
+.sliderBubble {
+  background: var(--mist-surface-3) !important;
+  color: var(--mist-text) !important;
+  border-radius: var(--mist-radius) !important;
+}
+
+/* seek bar: no rectangle when it's selected (the general focus ring drew a
+   box around the whole bar on Xbox); the handle grows with a soft halo */
+.mdl-slider:focus,
+.mdl-slider:focus-visible,
+.mdl-slider.show-focus:focus,
+.mdl-slider-container:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.mdl-slider:focus::-webkit-slider-thumb {
+  transform: scale(1.6);
+  box-shadow: 0 0 0 5px rgba(156, 203, 240, 0.35), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.mdl-slider:focus::-moz-range-thumb {
+  transform: scale(1.6);
+  box-shadow: 0 0 0 5px rgba(156, 203, 240, 0.35);
+}
+.mdl-slider-container:focus-within .mdl-slider-background-flex { transform: scaleY(1.6); }
+
+/* ---------- Login ---------- */
+#loginPage .manualLoginForm {
+  background: var(--mist-surface);
+  border: 1px solid var(--mist-line);
+  border-radius: var(--mist-radius-lg);
+  padding: 2em;
+  box-shadow: var(--mist-shadow);
+  max-width: 26em;
+  margin-inline: auto;
+}
+#loginPage h1 { font-weight: 600; letter-spacing: -0.02em; }
+
+/* ---------- Spacing & rhythm ----------
+   One gutter for every page edge, even gaps between posters, and
+   generous room between rows so the home screen breathes. */
+
+/* page side margins: titles, rows and forms all line up on one edge */
+.layout-desktop .padded-left, .layout-tv .padded-left,
+.layout-mobile .padded-left { padding-left: var(--mist-gutter) !important; }
+.layout-desktop .padded-right, .layout-tv .padded-right,
+.layout-mobile .padded-right { padding-right: var(--mist-gutter) !important; }
+/* Poster rows run edge to edge; the padding (not a margin) puts the
+   first poster exactly under its row title. Half the card gap is
+   subtracted because each poster already carries that much margin. */
+.emby-scroller {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: calc(var(--mist-gutter) - var(--mist-card-gap) / 2) !important;
+  padding-right: calc(var(--mist-gutter) - var(--mist-card-gap) / 2) !important;
+  scroll-padding-inline: calc(var(--mist-gutter) - var(--mist-card-gap) / 2);
+  padding-block: 6px;          /* room for the focus ring and hover lift */
+}
+.emby-scroller .itemsContainer { padding-inline: 0 !important; }
+
+/* Rows that live inside an already-indented container (cast & crew,
+   "More like this", seasons, extras) must not be indented a second
+   time, or the posters drift right of their titles. */
+.emby-scroller.no-padding,
+.detailPageSecondaryContainer .emby-scroller,
+.padded-left .emby-scroller {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  scroll-padding-inline: 0;
+}
+.emby-scroller.no-padding > .itemsContainer,
+.detailPageSecondaryContainer .emby-scroller > .itemsContainer,
+.padded-left .emby-scroller > .itemsContainer {
+  margin-left: calc(var(--mist-card-gap) / -2) !important;
+}
+
+/* empty photo placeholders (cast without pictures) match the palette */
+[class*="defaultCardBackground"] { background-color: var(--mist-surface-2) !important; }
+.cardImageIcon { color: var(--mist-surface-3) !important; }
+
+/* row scroll arrows sit level with the row title */
+.emby-scrollbuttons { padding-top: 2px !important; }
+.emby-scrollbuttons-button { width: 36px; height: 36px; border-radius: 999px; }
+
+/* rows on the home screen and library pages */
+.verticalSection, .homeSection { margin-bottom: var(--mist-space-6) !important; }
+.verticalSection-extrabottompadding { margin-bottom: var(--mist-space-7) !important; }
+.sectionTitleContainer {
+  margin-bottom: var(--mist-space-2) !important;
+  padding-top: 0 !important;
+}
+.sectionTitle, .sectionTitle-cards {
+  font-size: 1.3rem !important;
+  margin: 0 !important;
+}
+.sectionTitleContainer .sectionTitleButton,
+.sectionTitleTextButton { gap: var(--mist-space-2); }
+
+/* even gaps between posters */
+.cardBox { margin: calc(var(--mist-card-gap) / 2) !important; }
+.cardFooter {
+  padding: var(--mist-space-3) var(--mist-space-1) 0 !important;
+  min-height: 0;
+}
+.cardText { line-height: 1.35; padding: 0 !important; }
+.cardText + .cardText { margin-top: 2px; }
+
+/* grids (library views) */
+.vertical-wrap.itemsContainer { gap: 0; padding-top: var(--mist-space-2); }
+
+/* tabs under the header */
+.headerTabs, .emby-tabs-slider { gap: var(--mist-space-1); }
+.emby-tab-button { padding: var(--mist-space-3) var(--mist-space-4) !important; }
+
+/* header */
+.skinHeader .headerTop { padding: var(--mist-space-2) var(--mist-space-3) !important; }
+.headerRight { gap: var(--mist-space-1); }
+
+/* main content clears the header with consistent breathing room */
+.libraryPage:not(.noSecondaryNavPage) .pageTabContent,
+.homePage .pageTabContent { padding-top: var(--mist-space-5) !important; }
+
+/* side drawer */
+.mainDrawer-scrollContainer { padding-block: var(--mist-space-3); }
+.navMenuOption { padding: 0.7em 1em !important; gap: var(--mist-space-3); }
+.navMenuOptionIcon { margin-right: var(--mist-space-3) !important; }
+.sidebarHeader { padding: var(--mist-space-5) 1.6em var(--mist-space-2) !important; }
+.sidebarDivider { margin: var(--mist-space-3) 1em !important; }
+
+/* item detail page */
+.detailPagePrimaryContainer { padding-bottom: var(--mist-space-5); }
+.itemName.infoText { margin-bottom: var(--mist-space-2) !important; }
+.itemMiscInfo { gap: var(--mist-space-3); margin-bottom: var(--mist-space-2); }
+.mainDetailButtons { gap: var(--mist-space-2); margin-block: var(--mist-space-4) !important; }
+.detailButton { margin: 0 !important; }
+.detailSection, .detailVerticalSection { margin-bottom: var(--mist-space-6) !important; }
+.overview { margin-block: var(--mist-space-3) var(--mist-space-4); }
+.itemDetailsGroup { gap: var(--mist-space-2); }
+.detailsGroupItem { padding-block: 2px; }
+
+/* lists (episodes, tracks, settings) */
+.listItem { padding: var(--mist-space-3) var(--mist-space-4) !important; gap: var(--mist-space-3); }
+.listItem + .listItem { margin-top: 2px; }
+.listItemImage { border-radius: var(--mist-radius-sm) !important; overflow: hidden; }
+
+/* settings & forms */
+.readOnlyContent, .padded-left.padded-right form, .content-primary > form {
+  max-width: 54rem;
+}
+.inputContainer, .selectContainer, .checkboxContainer, .fldSelectContainer {
+  margin-bottom: var(--mist-space-5) !important;
+}
+.fieldDescription { margin-top: var(--mist-space-2) !important; line-height: 1.5; }
+.formDialogContent .content-primary,
+.formDialogContent > .dialogContentInner { padding: var(--mist-space-5) !important; }
+.formDialogFooter { padding: var(--mist-space-4) var(--mist-space-5) !important; gap: var(--mist-space-2); }
+
+/* buttons: comfortable, consistent hit areas */
+.emby-button.raised, .button-submit, .button-cancel {
+  padding: 0.75em 1.4em !important;
+  min-height: 2.75em;
+}
+
+/* ---------- TV mode & Xbox (10-foot, remote / controller) ----------
+   Checked live in Jellyfin's TV display mode. Focus is what you steer
+   by with a remote, so it's bold and unmistakable; blur effects are
+   off because TV browsers struggle with them; edges respect overscan. */
+.layout-tv { --mist-gutter: max(48px, 5vw); }
+
+.layout-tv .skinHeader, .layout-tv .nowPlayingBar, .layout-tv .detailRibbon {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.layout-tv .skinHeader, .layout-tv .skinHeader-withBackground { background-color: var(--mist-bg) !important; }
+
+/* posters: thick sky ring with a gap, brighter title underneath */
+.layout-tv .card.show-focus:focus .cardScalable,
+.layout-tv .card:focus-visible .cardScalable {
+  outline: 4px solid var(--mist-sky) !important;
+  outline-offset: 2px;
+  box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.7);   /* short, so it doesn't darken the title below */
+}
+/* gentler zoom than stock so the ring never covers the row title or
+   the card's own title at 1920x1080 */
+.layout-tv .card.show-animation:focus > .cardBox { transform: scale(1.06) !important; }
+.layout-tv .cardFooter { padding-top: 18px !important; }
+.layout-tv .sectionTitleContainer { margin-bottom: 18px !important; }
+.layout-tv .card.show-focus:focus .cardText { color: #FFFFFF; }
+.layout-tv .card.show-focus:focus .cardText-secondary,
+.layout-tv .card.show-focus:focus .cardText-secondary > * { color: var(--mist-text) !important; }
+
+/* buttons: filled sky plus a white ring, so focus is never ambiguous */
+.layout-tv .emby-button.show-focus:focus,
+.layout-tv .detailButton.show-focus:focus,
+.layout-tv .emby-button.detailFloatingButton:focus,
+.layout-tv .paper-icon-button-light.show-focus:focus {
+  background: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--mist-bg), 0 0 0 6px #FFFFFF !important;
+}
+/* Play stays soft until focused, so it never looks focused by mistake */
+.layout-tv .detailButton.btnPlay:not(:focus) {
+  background: var(--mist-sky-soft) !important;
+  color: var(--mist-sky) !important;
+}
+
+/* top tabs become pills; the focused one fills with sky */
+.layout-tv .emby-tabs-slider { padding-block: 6px; }
+.layout-tv .emby-tab-button {
+  border-radius: 999px;
+  padding: 0.55em 1.2em !important;
+  margin: 0 4px;
+}
+.layout-tv .emby-tab-button-active:not(:focus) {
+  box-shadow: none;
+  background: var(--mist-sky-soft);
+  color: var(--mist-text) !important;
+}
+.layout-tv .emby-tab-button.show-focus:focus {
+  color: var(--mist-on-sky) !important;
+  background: var(--mist-sky) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: scale(1.06) !important;
+}
+
+/* lists and form fields */
+.layout-tv .listItem.show-focus:focus, .layout-tv .listItem:focus {
+  background: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+  outline: none !important;
+}
+.layout-tv .listItem.show-focus:focus .secondary,
+.layout-tv .listItem:focus .listItemBodyText { color: var(--mist-on-sky) !important; }
+.layout-tv .emby-select:focus, .layout-tv .emby-input:focus {
+  border-color: var(--mist-sky) !important;
+  box-shadow: 0 0 0 4px var(--mist-sky-soft) !important;
+}
+.layout-tv .emby-tab-button:focus-visible,
+.layout-tv .emby-button:focus-visible { outline: none !important; }
+
+/* slightly brighter secondary text for viewing from across the room */
+.layout-tv .cardText-secondary, .layout-tv .itemMiscInfo, .layout-tv .secondary { color: #BAC5D4 !important; }
+
+/* TV detail page: thumbnail on the gutter, info column beside it */
+.layout-tv { --mist-detail-col: calc(var(--mist-gutter) + 25vw + 48px); }
+.layout-tv .detailImageContainer .card { left: var(--mist-gutter) !important; }
+.layout-tv .itemDetailPage .detailRibbon { padding-left: var(--mist-detail-col) !important; }
+.layout-tv .itemDetailPage .detailPagePrimaryContent { padding-left: var(--mist-detail-col) !important; }
+
+/* TV header (Xbox, Android TV, etc.): one tidy row inside the
+   title-safe area. The Xbox app draws edge to edge at 1920x1080 with no
+   system overscan margin, so the header needs its own. */
+.layout-tv { --mist-safe-top: 24px; --mist-header-h: 56px; }
+.layout-tv .skinHeader {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: var(--mist-safe-top) var(--mist-gutter) 12px !important;
+}
+.layout-tv .skinHeader .headerTop { padding: 0 !important; min-height: var(--mist-header-h); }
+.layout-tv .headerLeft { padding: 0 !important; }
+.layout-tv .pageTitle { margin: 0 !important; padding: 0 !important; }
+.layout-tv .headerTabs {
+  position: absolute !important;
+  top: calc(var(--mist-safe-top) + (var(--mist-header-h) - 59px) / 2) !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  margin: 0 !important;
+  width: auto !important;
+}
+.layout-tv .emby-tabs-slider { white-space: nowrap; }
+.layout-tv .page.withTabs,
+.layout-tv .page.pageWithAbsoluteTabs,
+.layout-tv .libraryPage {
+  padding-top: calc(var(--mist-safe-top) + var(--mist-header-h) + 28px) !important;
+}
+.layout-tv .pageTabContent { padding-top: 12px !important; }
+.layout-tv .currentTimeText { padding: 0 0 0 12px !important; color: var(--mist-text-muted); }
+
+/* header buttons (back, home, search…): a filled circle with a small
+   zoom; the white ring and big zoom got clipped by the header */
+.layout-tv .skinHeader .headerButton.show-focus:focus,
+.layout-tv .skinHeader .paper-icon-button-light.show-focus:focus {
+  box-shadow: none !important;
+  transform: scale(1.1) !important;
+}
+.layout-tv .skinHeader,
+.layout-tv .skinHeader .headerTop,
+.layout-tv .headerLeft,
+.layout-tv .headerRight { overflow: visible !important; }
+
+/* ---------- Detail page layout (TV and desktop) ----------
+   First screen: poster on the left; info, audio/subtitles and the
+   description beside it. That block is exactly one screen tall, so
+   everything else starts just below the bottom edge, running full
+   width from the left margin:
+     seasons / more from season → cast & crew → more like this & other
+     rows → tags → credits (last: on a controller they were dozens of
+     stops between the description and the cast).
+   Jellyfin's TV focus moves by screen position, so this visual order is
+   also the controller order. The page's nested containers are
+   flattened with display: contents and laid out on one grid; phones
+   keep Jellyfin's own layout. */
+.layout-tv      { --mist-detail-top: calc(var(--mist-safe-top) + var(--mist-header-h) + 28px); }
+.layout-desktop { --mist-detail-top: calc(40vh + 48px); }   /* backdrop + header */
+
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer {
+  display: grid !important;
+  grid-template-columns: var(--mist-detail-col) minmax(0, 1fr);
+  /* rows 1–10: first-screen items; row 11 stretches to fill the screen */
+  grid-template-rows: repeat(12, auto) minmax(0, 1fr);   /* minmax(0,…) keeps the fill exact */
+  position: relative;
+  padding-bottom: 5em;
+  background-color: var(--mist-bg);   /* was on the containers that are now flattened */
+}
+/* invisible spacer: makes rows 1–11 at least one screen tall, and at
+   least as tall as the poster (portrait posters are 25vw × 1.5) */
+.layout-tv      { --mist-poster-reach: calc(37.5vw + 24px); }
+.layout-desktop { --mist-poster-reach: calc(37.5vw - 12.96em + 24px); }   /* poster starts 12.96em above the strip */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / 14;
+  min-height: max(calc(100vh - var(--mist-detail-top)), var(--mist-poster-reach));
+  pointer-events: none;
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPagePrimaryContainer,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPagePrimaryContent,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSectionContent,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageSecondaryContainer { display: contents !important; }
+
+/* poster: pinned to the top-left of the first screen */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailImageContainer {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+/* info strip: full width across the top (its own padding clears the poster) */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailRibbon {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+/* first-screen items: right-hand column */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .trackSelections,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSectionContent > .itemGenres,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .tagline,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview-controls,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemBirthday,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemBirthLocation,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemDeathDate,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #seriesAirTime {
+  grid-column: 2;
+  box-sizing: border-box;
+  padding-left: 0 !important;
+  padding-right: var(--mist-gutter) !important;
+  max-width: none !important;
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .trackSelections { grid-row: 2; margin-block: 1.4em 1.6em !important; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSectionContent > .itemGenres { grid-row: 3; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .tagline { grid-row: 4; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview { grid-row: 5; margin-bottom: 2em; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview-controls { grid-row: 6; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemBirthday { grid-row: 7; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemBirthLocation { grid-row: 8; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemDeathDate { grid-row: 9; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #seriesAirTime { grid-row: 10; }
+/* shows: Next Up, Seasons (series page) and Episodes (season page) stay
+   in the right-hand column under the description, where Jellyfin puts
+   them */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection > .nextUpSection:is(.verticalSection):is(.detailVerticalSection),
+:is(.layout-tv, .layout-desktop) .itemDetailPage #listChildrenCollapsible {
+  grid-column: 2 !important;
+  padding-left: 0 !important;
+  padding-right: var(--mist-gutter) !important;
+  margin-top: 0.4em;
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection > .nextUpSection:is(.verticalSection):is(.detailVerticalSection) { grid-row: 11; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #listChildrenCollapsible { grid-row: 12; }
+
+/* season page episode list in that column: thumbnail about a third of
+   the row, title / runtime / a 3-line summary beside it */
+.itemDetailPage #listChildrenCollapsible .listItem { align-items: flex-start !important; gap: 24px; }
+.itemDetailPage #listChildrenCollapsible .listItemImage {
+  width: clamp(220px, 32%, 380px) !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  background-size: cover !important;
+}
+.itemDetailPage #listChildrenCollapsible .listItemBody { flex: 1 1 auto !important; min-width: 0 !important; padding: 0 !important; }
+.itemDetailPage #listChildrenCollapsible .listItemBodyText { white-space: normal; }
+.itemDetailPage #listChildrenCollapsible .listItem-overview {
+  max-width: 70ch;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+
+/* tidy the gap between the pickers and the description */
+.detailSectionContent > .itemGenres:empty { display: none; }
+.itemDetailPage .tagline { margin-top: 0 !important; }
+/* "Show more" sits right under the description, not off to the far right */
+.itemDetailPage .overview-controls { justify-content: flex-start !important; margin: -1.4em 0 1.2em !important; }
+.itemDetailPage .overview-expand { color: var(--mist-sky) !important; padding-left: 0 !important; font-weight: 600; }
+
+/* everything below the first screen: full width from the left margin */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection > *:not(.detailSectionContent):not(.trackSelections),
+:is(.layout-tv, .layout-desktop) .itemDetailPage .itemTags,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .itemExternalLinks,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .seriesRecordingEditor,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageSecondaryContainer > * {
+  grid-column: 1 / -1;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: var(--mist-gutter) !important;
+  padding-right: var(--mist-gutter) !important;
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .nextUpSection,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #listChildrenCollapsible,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #childrenCollapsible,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .moreFromSeasonSection,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #additionalPartsCollapsible { order: 4; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #castCollapsible,
+:is(.layout-tv, .layout-desktop) .itemDetailPage #guestCastCollapsible { order: 5; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageSecondaryContainer > *:not(#castCollapsible):not(#guestCastCollapsible):not(.moreFromSeasonSection):not(#childrenCollapsible):not(#additionalPartsCollapsible),
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection > .recordingFields,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection > .collectionItems,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .programGuideSection { order: 6; }
+/* tags and credits: very bottom */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .itemTags,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .itemExternalLinks,
+:is(.layout-tv, .layout-desktop) .itemDetailPage .seriesRecordingEditor { order: 9; margin-top: 1em; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .itemDetailsGroup { order: 10; margin: 1em 0 2em; }
+
+/* rows: a little room so the focus ring on the first card isn't clipped */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .emby-scroller {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  margin-left: -12px !important;
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .emby-scroller > .itemsContainer {
+  margin-left: calc(var(--mist-card-gap) / -2) !important;
+}
+
+.layout-tv .itemDetailPage .detailVerticalSection > .sectionTitle,
+.layout-tv .itemDetailPage .detailVerticalSection .sectionTitleContainer { margin-bottom: 18px !important; }
+
+/* ---------- First screen fits the screen (TV and desktop) ----------
+   The poster is sized to the screen height (tall posters fill it top to
+   bottom with even margins), and the title lines up with the top of the
+   poster, with buttons, pickers, description and (for shows) Next Up,
+   Seasons or Episodes beneath it. Long descriptions are trimmed with
+   "Show more" so nothing spills past the bottom edge. */
+:is(.layout-tv, .layout-desktop) {
+  --mist-fold-h: calc(100vh - var(--mist-detail-top));
+  --mist-poster-inset: 28px;
+  --mist-poster-w: min(32vw, calc((var(--mist-fold-h) - 2 * var(--mist-poster-inset)) / 1.5));
+  --mist-detail-col: calc(var(--mist-gutter) + var(--mist-poster-w) + 56px);
+  --mist-poster-reach: var(--mist-fold-h);
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailImageContainer { top: var(--mist-poster-inset) !important; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailImageContainer .card {
+  width: var(--mist-poster-w) !important;
+  max-width: none !important;
+  margin-right: calc(-1 * var(--mist-poster-w)) !important;
+  margin-bottom: 0 !important;
+  top: 0 !important;
+  max-height: none !important;       /* Jellyfin caps it at 80vh, which cut off the bottom */
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailImageContainer .cardBox { margin: 0 !important; }
+/* desktop: the info strip no longer overlaps the backdrop, so the title
+   can line up with the poster; it drops its frosted band to match TV */
+.layout-desktop .itemDetailPage .detailRibbon {
+  margin-top: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.layout-desktop .itemDetailPage .detailRibbon { align-items: flex-start !important; }
+/* desktop: the title logo now has the backdrop to itself, so centre it
+   (Jellyfin puts it right of centre to make room for the old strip) */
+.layout-desktop .itemDetailPage .detailLogo {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%);
+  width: 34vw !important;
+  height: 22vh !important;
+  top: 9vh !important;                /* (40vh backdrop − 22vh logo) / 2 */
+  background-position: center !important;
+}
+.layout-desktop .itemDetailPage .detailRibbon .infoWrapper,
+.layout-desktop .itemDetailPage .detailRibbon .nameContainer { padding-top: 0 !important; margin-top: 0 !important; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer {
+  /* first row = the poster's top margin, so the title lines up with the
+     top of the poster */
+  grid-template-rows: var(--mist-poster-inset) repeat(12, auto) minmax(0, 1fr);
+}
+/* wide thumbnails (episodes) and other non-tall images join the centred
+   block, lined up with the title */
+:is(.layout-tv, .layout-desktop) .itemDetailPage:not(:has(.detailImageContainer :is(.portraitCard, .squareCard))) .detailImageContainer {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  grid-column: 1;
+  grid-row: 2 / 14;
+  align-self: start;
+}
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer::before { grid-row: 1 / 15; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailRibbon { grid-row: 2; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .trackSelections { grid-row: 3; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSectionContent > .itemGenres { grid-row: 4; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .tagline { grid-row: 5; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview { grid-row: 6; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview-controls { grid-row: 7; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemBirthday { grid-row: 8; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemBirthLocation { grid-row: 9; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #itemDeathDate { grid-row: 10; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #seriesAirTime { grid-row: 11; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailSection > .nextUpSection:is(.verticalSection):is(.detailVerticalSection) { grid-row: 12; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage #listChildrenCollapsible { grid-row: 13; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailRibbon { padding-top: 0 !important; padding-bottom: 0 !important; min-height: 0 !important; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .overview {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
+  max-width: 80ch !important;
+  margin-bottom: 1.4em !important;
+}
+
+/* TV: a little more breathing room everywhere */
+.layout-tv {
+  --mist-card-gap: 16px;
+}
+.layout-tv .verticalSection, .layout-tv .homeSection { margin-bottom: 44px !important; }
+.layout-tv .sectionTitleContainer,
+.layout-tv .itemDetailPage .detailVerticalSection > .sectionTitle,
+.layout-tv .itemDetailPage .detailVerticalSection .sectionTitleContainer { margin-bottom: 22px !important; }
+.layout-tv .cardFooter { padding-top: 26px !important; }
+/* cards whose title sits straight under the image (cast & crew) */
+.cardScalable + .cardText { margin-top: var(--mist-space-3) !important; }
+.layout-tv .cardScalable + .cardText { margin-top: 26px !important; }
+.layout-tv .cardText + .cardText { margin-top: 4px; }
+.layout-tv .mainDetailButtons { margin-block: 20px !important; gap: 14px; }
+.layout-tv .detailRibbon .itemMiscInfo { margin-bottom: 6px; }
+
+/* TV / Xbox: no scrollbars (the controller does the scrolling) */
+html.layout-tv, .layout-tv body, .layout-tv * { scrollbar-width: none !important; }
+html.layout-tv::-webkit-scrollbar,
+.layout-tv body::-webkit-scrollbar,
+.layout-tv *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+
+/* ---------- Preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (prefers-contrast: more) {
+  :root {
+    --mist-text-muted:  #C9D2DE;
+    --mist-line:        rgba(190, 210, 240, 0.24);
+    --mist-line-strong: rgba(190, 210, 240, 0.42);
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .skinHeader, .skinHeader-withBackground { background-color: var(--mist-bg) !important; }
+  .nowPlayingBar { background-color: var(--mist-surface); }
+}
