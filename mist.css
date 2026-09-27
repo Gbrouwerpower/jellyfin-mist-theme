@@ -158,10 +158,13 @@ html[data-theme="dark"],
 }
 
 /* ---------- Base & typography ---------- */
-html, body, .skinBody, .backgroundContainer {
+/* .skinBody stays transparent: the video player sits behind the page,
+   so painting it covered the top of the picture during playback */
+html, body, .backgroundContainer {
   background-color: var(--mist-bg);
   color: var(--mist-text);
 }
+.skinBody { color: var(--mist-text); }
 body, button, input, select, textarea,
 .emby-button, .emby-input, .emby-select, .emby-textarea,
 .cardText, .listItemBodyText, .navMenuOptionText, .sectionTitle, .pageTitle,
