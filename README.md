@@ -6,9 +6,25 @@ A refined, accessible custom-CSS theme for **Jellyfin Web 12.x** (it also works 
 
 1. In Jellyfin, open **Dashboard → Branding → Custom CSS** (server-wide), or **Settings → Display → Custom CSS** (just your account).
 2. Remove any other theme already in that box.
-3. Paste the entire contents of [`mist.css`](mist.css). Keep the `@import` line for the font at the very top.
+3. Paste this line:
+
+   ```css
+   @import url("https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@stable/mist.css");
+   ```
+
 4. Save, then hard-refresh the browser (or restart the Xbox app).
 5. Set each client's **Theme** to *Dark*.
+
+The import follows the `stable` branch, so you get updates automatically. The CDN can take up to about 12 hours to pick them up. To pin a version or tweak the theme yourself, paste the full contents of [`mist.css`](mist.css) instead.
+
+### Branches
+
+| Branch | Use it for |
+| --- | --- |
+| `stable` | Everyone. Only tested changes land here. |
+| `testing` | Work in progress; may break. Import it with `@testing` in place of `@stable`. |
+
+To see a push right away instead of waiting for the CDN, open its purge link, for example `https://purge.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@testing/mist.css`, then hard-refresh Jellyfin.
 
 ## What it does
 
