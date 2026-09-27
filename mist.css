@@ -4,7 +4,7 @@
    MIST — a refined, pastel-blue theme for Jellyfin Web 12.x (works on 10.11 too)
    Install: paste this into Dashboard → Branding → Custom CSS (server-wide)
             or Settings → Display → Custom CSS (just you):
-     @import url("https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@stable/mist.css");
+     @import url("https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@main/mist.css");
    If pasting this whole file instead, keep the font @import on the very
    first line of the box. Either way, remove any other theme (e.g. the
    old amber "Nocturne") so they don't fight.
