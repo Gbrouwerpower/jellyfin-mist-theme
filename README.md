@@ -41,7 +41,7 @@ To see a push right away instead of waiting for the CDN, open its purge link, fo
 - Shows keep Next Up, Seasons and the Episodes list beside the description.
 - Cast & Crew, More Like This and other rows start just below the fold, full width.
 - Tags and credits move to the very bottom, so there are fewer controller stops.
-- On desktop, the title logo is centred in the backdrop, and the header turns see-through so the backdrop runs to the top of the screen.
+- On desktop, the title logo is centred in the backdrop.
 
 **Desktop**
 - Borrows the TV look: slightly larger text, a solid header, pill-shaped navigation, and roomier spacing.
