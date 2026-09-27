@@ -996,20 +996,6 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   top: 9vh !important;                /* (40vh backdrop − 22vh logo) / 2 */
   background-position: center !important;
 }
-/* desktop pages with no backdrop image (people, books, anything without
-   one, or the details banner turned off): Jellyfin still keeps a blank
-   40vh box at the top, so drop it and let the first screen start under
-   the header. A backdrop that's still loading is marked .lazy-hidden,
-   so movie pages don't jump while theirs loads. */
-.layout-desktop .itemDetailPage .itemBackdrop:not(.lazy-hidden):not([style*="url("]) { display: none; }
-.layout-desktop .itemDetailPage .itemBackdrop:not(.lazy-hidden):not([style*="url("]) ~ .detailPageWrapperContainer {
-  /* the sizes are worked out on <html>, so they're repeated here to
-     pick up the taller first screen */
-  --mist-detail-top:  48px;                         /* header only */
-  --mist-fold-h:      calc(100vh - var(--mist-detail-top));
-  --mist-poster-w:    min(32vw, calc((var(--mist-fold-h) - 2 * var(--mist-poster-inset)) / 1.5));
-  --mist-detail-col:  calc(var(--mist-gutter) + var(--mist-poster-w) + 56px);
-}
 
 /* first-screen items: right-hand column, in this order */
 .layout-tv .itemDetailPage .trackSelections,
