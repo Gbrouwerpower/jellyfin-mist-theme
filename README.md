@@ -48,7 +48,7 @@ To see a push right away instead of waiting for the CDN, open its purge link, fo
 - Hovering a poster shows the same sky ring as TV focus, and hovered buttons fill with sky blue.
 
 **TV / Xbox**
-- Title-safe margins and a tidy one-row header.
+- Even margins on every side and a tidy one-row header. If your TV crops the edges, set its picture size to *Just Scan*, *Screen Fit* or *Fit to Screen* (the name varies by brand).
 - A bold, unambiguous focus: a pastel ring on posters, and a white ring on buttons.
 - Fixes for the Xbox app's no-animation focus band and the seek-bar focus box.
 - A slimmer video-player overlay.
@@ -67,7 +67,7 @@ The variables at the top of `mist.css` control the look:
 | --- | --- |
 | `--mist-sky`, `--mist-periwinkle` | Accent colours |
 | `--mist-bg`, `--mist-surface*` | Background and surfaces |
-| `--mist-gutter` | Page side margins |
+| `--mist-edge` | Margin around the page on TV and desktop (sides, and above and below the poster on movie pages) |
 | `--mist-card-gap` | Space between posters |
 | `--mist-radius` | Poster corner roundness |
 
