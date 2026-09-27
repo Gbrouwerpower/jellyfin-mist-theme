@@ -884,7 +884,7 @@ h1, h2, h3 { letter-spacing: -0.015em; }
    flattened with display: contents and laid out on one grid; phones
    keep Jellyfin's own layout. */
 .layout-tv      { --mist-detail-top: calc(var(--mist-safe-top) + var(--mist-header-h) + 28px); }
-.layout-desktop { --mist-detail-top: 48px; }                 /* header (no backdrop banner, like TV) */
+.layout-desktop { --mist-detail-top: calc(40vh + 48px); }   /* backdrop + header */
 
 :is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer {
   display: grid !important;
@@ -1067,10 +1067,17 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   backdrop-filter: none !important;
 }
 .layout-desktop .itemDetailPage .detailRibbon { align-items: flex-start !important; }
-/* desktop: no backdrop banner or title logo, like TV, so the poster
-   and title open the page */
-.layout-desktop .itemDetailPage .itemBackdrop,
-.layout-desktop .itemDetailPage .detailLogo { display: none !important; }
+/* desktop: the title logo now has the backdrop to itself, so centre it
+   (Jellyfin puts it right of centre to make room for the old strip) */
+.layout-desktop .itemDetailPage .detailLogo {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%);
+  width: 34vw !important;
+  height: 22vh !important;
+  top: 9vh !important;                /* (40vh backdrop − 22vh logo) / 2 */
+  background-position: center !important;
+}
 .layout-desktop .itemDetailPage .detailRibbon .infoWrapper,
 .layout-desktop .itemDetailPage .detailRibbon .nameContainer { padding-top: 0 !important; margin-top: 0 !important; }
 :is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer {
