@@ -57,7 +57,8 @@
    Jellyfin puts one layout class on <html>, so these override :root. */
 .layout-desktop {
   --mist-card-gap:    16px;
-  --mist-detail-top:  calc(40vh + 48px);           /* backdrop + header */
+  --mist-header-h:    48px;
+  --mist-detail-top:  calc(40vh + var(--mist-header-h));   /* backdrop + header */
 }
 /* TV (Xbox, Android TV…): the Xbox app draws edge to edge at 1920x1080
    with no system overscan margin, so the header keeps its own */
@@ -1287,6 +1288,32 @@ html.layout-desktop { font-size: 17px; }
 .cardPadder { background-color: var(--mist-surface-2) !important; }
 
 /* detail pages */
+/* the backdrop fades into the page instead of ending on a hard line */
+.layout-desktop .itemDetailPage .itemBackdrop::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(180deg, rgba(16, 21, 29, 0), var(--mist-bg));
+  pointer-events: none;
+}
+/* see-through header: on a movie or show page the header drops its
+   fill so the backdrop shows through, keeping a soft fade behind the
+   buttons. The backdrop reaches up behind it; its negative margin
+   cancels the extra height, so nothing below moves. */
+html.layout-desktop:has(.itemDetailPage:not(.hide)) .MuiAppBar-root,
+html.layout-desktop:has(.itemDetailPage:not(.hide)) .skinHeader:not(.osdHeader) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+/* the fade goes on the outermost header only, so it isn't doubled */
+html.layout-desktop:has(.itemDetailPage:not(.hide)) :is(.MuiAppBar-root, .skinHeader:not(.osdHeader)):not(.skinHeader *) {
+  background-image: linear-gradient(180deg, rgba(16, 21, 29, 0.6), rgba(16, 21, 29, 0)) !important;
+}
+.layout-desktop .itemDetailPage .itemBackdrop {
+  margin-top: calc(-1 * var(--mist-header-h)) !important;
+  height: calc(40vh + var(--mist-header-h)) !important;
+}
 /* Next Up and Seasons posters line up with the text column */
 .layout-tv .itemDetailPage .vertical-wrap,
 .layout-desktop .itemDetailPage .vertical-wrap { margin-left: calc(var(--mist-card-gap) / -2) !important; }
