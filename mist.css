@@ -965,7 +965,7 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 
 /* season page episode list in that column: thumbnail about a third of
    the row, title / runtime / a 3-line summary beside it */
-.itemDetailPage #listChildrenCollapsible .listItem { align-items: flex-start !important; gap: 24px; }
+.itemDetailPage #listChildrenCollapsible :is(.listItem, .listItem-content) { align-items: flex-start !important; gap: 24px; }
 .itemDetailPage #listChildrenCollapsible .listItemImage {
   width: clamp(220px, 32%, 380px) !important;
   height: auto !important;
@@ -1157,15 +1157,17 @@ html.layout-desktop { font-size: 17px; }
   backdrop-filter: none !important;
 }
 
-/* navigation: pills, filled soft sky when hovered (and, for tabs, active) */
-.layout-desktop .MuiAppBar-root .MuiButton-text,
+/* navigation: pills, filled soft sky when hovered (and, for tabs, active).
+   Only the header's links (<a>): library toolbars share the app bar,
+   and their grouped buttons would turn their dividers into arcs. */
+.layout-desktop .MuiAppBar-root a.MuiButton-text,
 .layout-desktop .emby-tab-button {
   border-radius: 999px !important;
   padding: 0.4em 1.1em !important;
   margin: 0 2px;
   color: var(--mist-text-muted);
 }
-.layout-desktop .MuiAppBar-root .MuiButton-text:hover,
+.layout-desktop .MuiAppBar-root a.MuiButton-text:hover,
 .layout-desktop .emby-tab-button:hover {
   background: var(--mist-sky-soft) !important;
   color: var(--mist-text) !important;
@@ -1175,7 +1177,7 @@ html.layout-desktop { font-size: 17px; }
   background: var(--mist-sky-soft) !important;
   color: var(--mist-text) !important;
 }
-.layout-desktop .MuiAppBar-root .MuiButton-sizeLarge { padding-inline: 0.6em !important; color: var(--mist-text); }
+.layout-desktop .MuiAppBar-root a.MuiButton-sizeLarge { padding-inline: 0.6em !important; color: var(--mist-text); }
 
 /* posters: the TV focus ring, on hover */
 .layout-desktop .card-hoverable:hover .cardScalable {
@@ -1201,6 +1203,74 @@ html.layout-desktop { font-size: 17px; }
 .layout-desktop .sectionTitleContainer { margin-bottom: 16px !important; }
 .layout-desktop .cardFooter { padding-top: 12px !important; }
 .layout-desktop .cardText-secondary, .layout-desktop .itemMiscInfo, .layout-desktop .secondary { color: #BAC5D4 !important; }
+
+/* ---------- Alignment & spacing polish ----------
+   Things that should share an edge do: posters, row titles, the logo
+   and list rows all start on the page gutter, and gaps repeat. */
+
+/* header: the logo and a library's title sit on the gutter, not their
+   button padding */
+.layout-desktop .MuiAppBar-root .MuiStack-root > a.MuiButton-sizeLarge:first-child { margin-left: -6px; }
+.layout-desktop .MuiAppBar-root .MuiToolbar-root > button.MuiButton-sizeLarge:first-child { margin-left: -12px; }
+
+/* poster grids (libraries, favourites, search): each poster carries half
+   the gap as margin, so the grid's padding gives it back */
+:is(.layout-desktop, .layout-tv, .layout-mobile) .vertical-wrap.padded-left { padding-left: calc(var(--mist-gutter) - var(--mist-card-gap) / 2) !important; }
+:is(.layout-desktop, .layout-tv, .layout-mobile) .vertical-wrap.padded-right { padding-right: calc(var(--mist-gutter) - var(--mist-card-gap) / 2) !important; }
+
+/* row titles: every row has the same title height and gap to its
+   posters, whether or not the title links somewhere */
+.layout-desktop .verticalSection > .sectionTitle.padded-left {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  margin-bottom: 16px !important;
+}
+.sectionTitleTextButton .material-icons { margin-bottom: 0 !important; }
+/* row scroll arrows: level with the title, chevrons on the right gutter */
+.emby-scrollbuttons { padding-top: 0 !important; }
+.sectionTitleContainer + .emby-scrollbuttons { margin-top: -3px; }
+.layout-desktop .emby-scrollbuttons.padded-right { padding-right: calc(var(--mist-gutter) - 23px) !important; }
+
+/* loading and empty posters: blue-slate like everything else, not
+   Jellyfin's neutral grey */
+.cardPadder { background-color: var(--mist-surface-2) !important; }
+
+/* detail pages */
+/* the backdrop fades into the page instead of ending on a hard line */
+.layout-desktop .itemDetailPage .itemBackdrop::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(180deg, rgba(16, 21, 29, 0), var(--mist-bg));
+  pointer-events: none;
+}
+/* the title strip is only as tall as its content (Jellyfin fixes it at
+   7.2em, which left a gap under shorter titles) */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .detailRibbon { height: auto !important; }
+/* tagline and description read as one block */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .tagline { margin-bottom: 0 !important; }
+/* Next Up and Seasons posters line up with the text column */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .vertical-wrap { margin-left: calc(var(--mist-card-gap) / -2) !important; }
+/* episode list: thumbnail on the text column and the row runs to the
+   page gutter (the gap before the text is set with the list above) */
+:is(.layout-tv, .layout-desktop) .itemDetailPage .vertical-list.padded-right { padding-right: 0 !important; }
+:is(.layout-tv, .layout-desktop) .itemDetailPage .vertical-list > .listItem { margin-inline: -16px; }
+/* scene titles: a full-width fade along the bottom of the thumbnail
+   instead of a box that stops where the text does */
+.chapterCard .innerCardFooter {
+  right: 0 !important;
+  width: auto !important;
+  padding: 28px 12px 10px !important;
+  background: linear-gradient(0deg, rgba(8, 11, 16, 0.88), rgba(8, 11, 16, 0.5) 65%, rgba(8, 11, 16, 0)) !important;
+}
+.chapterCard .innerCardFooter .cardText + .cardText { color: var(--mist-text-soft); }
+
+/* search: the icon is level with the field */
+.searchFields .inputContainer { margin-bottom: 0 !important; }
+.searchFieldsInner { align-items: flex-end !important; }
+.searchfields-icon { margin-bottom: 8px !important; }
+.searchfields-txtSearch { padding-inline: 14px !important; }
 
 /* ---------- Preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
