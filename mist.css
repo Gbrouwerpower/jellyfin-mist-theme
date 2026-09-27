@@ -884,7 +884,7 @@ h1, h2, h3 { letter-spacing: -0.015em; }
    flattened with display: contents and laid out on one grid; phones
    keep Jellyfin's own layout. */
 .layout-tv      { --mist-detail-top: calc(var(--mist-safe-top) + var(--mist-header-h) + 28px); }
-.layout-desktop { --mist-detail-top: calc(40vh + 48px); }   /* backdrop + header */
+.layout-desktop { --mist-detail-top: 48px; }                 /* header (no backdrop banner, like TV) */
 
 :is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer {
   display: grid !important;
@@ -1067,17 +1067,10 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   backdrop-filter: none !important;
 }
 .layout-desktop .itemDetailPage .detailRibbon { align-items: flex-start !important; }
-/* desktop: the title logo now has the backdrop to itself, so centre it
-   (Jellyfin puts it right of centre to make room for the old strip) */
-.layout-desktop .itemDetailPage .detailLogo {
-  left: 50% !important;
-  right: auto !important;
-  transform: translateX(-50%);
-  width: 34vw !important;
-  height: 22vh !important;
-  top: 9vh !important;                /* (40vh backdrop − 22vh logo) / 2 */
-  background-position: center !important;
-}
+/* desktop: no backdrop banner or title logo, like TV, so the poster
+   and title open the page */
+.layout-desktop .itemDetailPage .itemBackdrop,
+.layout-desktop .itemDetailPage .detailLogo { display: none !important; }
 .layout-desktop .itemDetailPage .detailRibbon .infoWrapper,
 .layout-desktop .itemDetailPage .detailRibbon .nameContainer { padding-top: 0 !important; margin-top: 0 !important; }
 :is(.layout-tv, .layout-desktop) .itemDetailPage .detailPageWrapperContainer {
@@ -1139,6 +1132,68 @@ html.layout-tv, .layout-tv body, .layout-tv * { scrollbar-width: none !important
 html.layout-tv::-webkit-scrollbar,
 .layout-tv body::-webkit-scrollbar,
 .layout-tv *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+
+/* ---------- Desktop: the TV look ----------
+   Desktop borrows TV mode's calmer design: slightly larger type, a
+   solid header, roomier spacing, pill-shaped navigation, brighter
+   secondary text and a bold sky ring on the poster under the mouse. */
+html.layout-desktop { font-size: 17px; }
+.layout-desktop { --mist-gutter: max(40px, 4vw); --mist-card-gap: 16px; }
+
+/* header: solid blue-slate, no blur or divider (the video player's
+   overlay header keeps its own fade) */
+.layout-desktop .MuiAppBar-root,
+.layout-desktop .skinHeader:not(.osdHeader) {
+  background-color: var(--mist-bg) !important;
+  border-bottom: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* navigation: pills, filled soft sky when hovered (and, for tabs, active) */
+.layout-desktop .MuiAppBar-root .MuiButton-text,
+.layout-desktop .emby-tab-button {
+  border-radius: 999px !important;
+  padding: 0.4em 1.1em !important;
+  margin: 0 2px;
+  color: var(--mist-text-muted);
+}
+.layout-desktop .MuiAppBar-root .MuiButton-text:hover,
+.layout-desktop .emby-tab-button:hover {
+  background: var(--mist-sky-soft) !important;
+  color: var(--mist-text) !important;
+}
+.layout-desktop .emby-tab-button-active {
+  box-shadow: none !important;
+  background: var(--mist-sky-soft) !important;
+  color: var(--mist-text) !important;
+}
+.layout-desktop .MuiAppBar-root .MuiButton-sizeLarge { padding-inline: 0.6em !important; color: var(--mist-text); }
+
+/* posters: the TV focus ring, on hover */
+.layout-desktop .card-hoverable:hover .cardScalable {
+  outline: 3px solid var(--mist-sky);
+  outline-offset: 2px;
+}
+.layout-desktop .card-hoverable:hover .cardText { color: #FFFFFF; }
+
+/* detail buttons: Play stays soft until hovered, hovered buttons fill sky */
+.layout-desktop .detailButton.btnPlay:not(:hover) {
+  background: var(--mist-sky-soft) !important;
+  color: var(--mist-sky) !important;
+}
+.layout-desktop .detailButton:hover,
+.layout-desktop .detailButton.btnPlay:hover {
+  background: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+}
+.layout-desktop .mainDetailButtons { margin-block: 16px !important; gap: 10px; }
+
+/* breathing room and brighter secondary text */
+.layout-desktop .verticalSection, .layout-desktop .homeSection { margin-bottom: 40px !important; }
+.layout-desktop .sectionTitleContainer { margin-bottom: 16px !important; }
+.layout-desktop .cardFooter { padding-top: 12px !important; }
+.layout-desktop .cardText-secondary, .layout-desktop .itemMiscInfo, .layout-desktop .secondary { color: #BAC5D4 !important; }
 
 /* ---------- Preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
