@@ -1,0 +1,44 @@
+# Publishes mist.css to GitHub Pages on every push, so the @import
+# updates within a minute or two. Pages lets browsers cache for only
+# 10 minutes (jsDelivr allows 7 days).
+#   main:    https://gbrouwerpower.github.io/jellyfin-mist-theme/mist.css
+#   testing: https://gbrouwerpower.github.io/jellyfin-mist-theme/testing/mist.css
+# Both files are rebuilt on every run, whichever branch was pushed.
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches: [main, testing]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Collect each branch's mist.css
+        run: |
+          mkdir -p _site/testing
+          git show origin/main:mist.css > _site/mist.css
+          git show origin/testing:mist.css > _site/testing/mist.css
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v5

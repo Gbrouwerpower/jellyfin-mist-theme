@@ -9,22 +9,24 @@ A refined, accessible custom-CSS theme for **Jellyfin Web 12.x** (it also works 
 3. Paste this line:
 
    ```css
-   @import url("https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@main/mist.css");
+   @import url("https://gbrouwerpower.github.io/jellyfin-mist-theme/mist.css");
    ```
 
 4. Save, then hard-refresh the browser (or restart the Xbox app).
 5. Set each client's **Theme** to *Dark*.
 
-The import follows the `main` branch, so you get updates automatically. The CDN can take up to about 12 hours to pick them up. To pin a version or tweak the theme yourself, paste the full contents of [`mist.css`](mist.css) instead.
+The import follows the `main` branch, so you get updates automatically: GitHub Pages publishes each push within a couple of minutes, and browsers check for a new copy every 10 minutes. To pin a version or tweak the theme yourself, paste the full contents of [`mist.css`](mist.css) instead.
 
 ### Branches
 
 | Branch | Use it for |
 | --- | --- |
 | `main` | Everyone. Only tested changes land here. |
-| `testing` | Work in progress; may break. Import it with `@testing` in place of `@main`. |
+| `testing` | Work in progress; may break. Import `https://gbrouwerpower.github.io/jellyfin-mist-theme/testing/mist.css` instead. |
 
-To see a push right away instead of waiting for the CDN, open its purge link, for example `https://purge.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@testing/mist.css`, then hard-refresh Jellyfin.
+To see a push right away instead of waiting up to 10 minutes, hard-refresh Jellyfin once the push's **Publish to GitHub Pages** run on the Actions tab has finished.
+
+The older jsDelivr imports (`https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@main/mist.css`) still work, but browsers may keep an old copy for up to 7 days.
 
 ## What it does
 
