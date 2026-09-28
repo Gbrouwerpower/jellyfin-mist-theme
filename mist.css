@@ -654,8 +654,9 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .mdl-slider-container:focus-within .mdl-slider-background-flex { transform: scaleY(1.6); }
 
 /* ---------- Icons ----------
-   The play buttons and the video player use Lucide's line icons in
-   place of Jellyfin's Material Icons. Each icon is drawn as a mask over
+   The video player, the buttons on movie and show pages, and the
+   buttons on posters use Lucide's line icons in place of Jellyfin's
+   Material Icons. Each icon is drawn as a mask over
    the text colour, so hover and focus colours still apply. Browsers
    without CSS masks keep Jellyfin's icons.
 
@@ -672,7 +673,8 @@ h1, h2, h3 { letter-spacing: -0.015em; }
    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-   airplay, arrow-left, chevron-left, maximize and minimize come from
+   airplay, arrow-left, check, chevron-left, compass, download,
+   ellipsis-vertical, maximize, minimize, square and trash-2 come from
    Feather (https://feathericons.com), MIT License,
    Copyright (c) 2013-present Cole Bemis.
    Permission is hereby granted, free of charge, to any person obtaining a
@@ -710,59 +712,57 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   --mist-icon-pip: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 9V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h4'/%3E%3Crect width='10' height='7' x='12' y='13' rx='2'/%3E%3C/svg%3E");
   --mist-icon-fullscreen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3H5a2 2 0 0 0-2 2v3'/%3E%3Cpath d='M21 8V5a2 2 0 0 0-2-2h-3'/%3E%3Cpath d='M3 16v3a2 2 0 0 0 2 2h3'/%3E%3Cpath d='M16 21h3a2 2 0 0 0 2-2v-3'/%3E%3C/svg%3E");
   --mist-icon-fullscreen-exit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3v3a2 2 0 0 1-2 2H3'/%3E%3Cpath d='M21 8h-3a2 2 0 0 1-2-2V3'/%3E%3Cpath d='M3 16h3a2 2 0 0 1 2 2v3'/%3E%3Cpath d='M16 21v-3a2 2 0 0 1 2-2h3'/%3E%3C/svg%3E");
+  --mist-icon-replay: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'/%3E%3Cpath d='M3 3v5h5'/%3E%3C/svg%3E");
+  --mist-icon-download: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 15V3'/%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+  --mist-icon-trailer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12.296 3.464 3.02 3.956'/%3E%3Cpath d='M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z'/%3E%3Cpath d='M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpath d='m6.18 5.276 3.1 3.899'/%3E%3C/svg%3E");
+  --mist-icon-instant-mix: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z'/%3E%3C/svg%3E");
+  --mist-icon-shuffle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 14 4 4-4 4'/%3E%3Cpath d='m18 2 4 4-4 4'/%3E%3Cpath d='M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22'/%3E%3Cpath d='M2 6h1.972a4 4 0 0 1 3.6 2.2'/%3E%3Cpath d='M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45'/%3E%3C/svg%3E");
+  --mist-icon-delete: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 11v6'/%3E%3Cpath d='M14 11v6'/%3E%3Cpath d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6'/%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/%3E%3C/svg%3E");
+  --mist-icon-stop: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='3' rx='2'/%3E%3C/svg%3E");
+  --mist-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  --mist-icon-split: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 3h5v5'/%3E%3Cpath d='M8 3H3v5'/%3E%3Cpath d='M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3'/%3E%3Cpath d='m15 9 6-6'/%3E%3C/svg%3E");
+  --mist-icon-more: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='1'/%3E%3Ccircle cx='12' cy='5' r='1'/%3E%3Ccircle cx='12' cy='19' r='1'/%3E%3C/svg%3E");
+  --mist-icon-heart-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5'/%3E%3C/svg%3E");
   --mist-icon-back: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 19-7-7 7-7'/%3E%3Cpath d='M19 12H5'/%3E%3C/svg%3E");
   --mist-icon-back-safari: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
-  --mist-icon-heart-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5'/%3E%3C/svg%3E");
 }
 @supports ((mask-image: none) or (-webkit-mask-image: none)) {
-  .videoOsdBottom .material-icons.play_arrow { --mist-icon: var(--mist-icon-play); }
-  .videoOsdBottom .material-icons.pause { --mist-icon: var(--mist-icon-pause); }
-  .videoOsdBottom .material-icons.skip_previous { --mist-icon: var(--mist-icon-skip-back); }
-  .videoOsdBottom .material-icons.skip_next { --mist-icon: var(--mist-icon-skip-forward); }
-  .videoOsdBottom .material-icons.fast_rewind { --mist-icon: var(--mist-icon-rewind); }
-  .videoOsdBottom .material-icons.fast_forward { --mist-icon: var(--mist-icon-fast-forward); }
-  .videoOsdBottom .material-icons.undo { --mist-icon: var(--mist-icon-undo); }
-  .videoOsdBottom .material-icons.redo { --mist-icon: var(--mist-icon-redo); }
-  .videoOsdBottom .material-icons.fiber_manual_record { --mist-icon: var(--mist-icon-record); }
-  .videoOsdBottom .material-icons.favorite { --mist-icon: var(--mist-icon-heart); }
-  .videoOsdBottom .material-icons.closed_caption { --mist-icon: var(--mist-icon-captions); }
-  .videoOsdBottom .material-icons.audiotrack { --mist-icon: var(--mist-icon-audio); }
-  .videoOsdBottom .material-icons.volume_up { --mist-icon: var(--mist-icon-volume); }
-  .videoOsdBottom .material-icons.volume_off { --mist-icon: var(--mist-icon-volume-off); }
-  .videoOsdBottom .material-icons.settings { --mist-icon: var(--mist-icon-settings); }
-  .videoOsdBottom .material-icons.airplay { --mist-icon: var(--mist-icon-airplay); }
-  .videoOsdBottom .material-icons.picture_in_picture_alt { --mist-icon: var(--mist-icon-pip); }
-  .videoOsdBottom .material-icons.fullscreen { --mist-icon: var(--mist-icon-fullscreen); }
-  .videoOsdBottom .material-icons.fullscreen_exit { --mist-icon: var(--mist-icon-fullscreen-exit); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.play_arrow { --mist-icon: var(--mist-icon-play); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.pause { --mist-icon: var(--mist-icon-pause); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.skip_previous { --mist-icon: var(--mist-icon-skip-back); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.skip_next { --mist-icon: var(--mist-icon-skip-forward); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.fast_rewind { --mist-icon: var(--mist-icon-rewind); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.fast_forward { --mist-icon: var(--mist-icon-fast-forward); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.undo { --mist-icon: var(--mist-icon-undo); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.redo { --mist-icon: var(--mist-icon-redo); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.fiber_manual_record { --mist-icon: var(--mist-icon-record); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.favorite { --mist-icon: var(--mist-icon-heart); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.closed_caption { --mist-icon: var(--mist-icon-captions); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.audiotrack { --mist-icon: var(--mist-icon-audio); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.volume_up { --mist-icon: var(--mist-icon-volume); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.volume_off { --mist-icon: var(--mist-icon-volume-off); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.settings { --mist-icon: var(--mist-icon-settings); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.airplay { --mist-icon: var(--mist-icon-airplay); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.picture_in_picture_alt { --mist-icon: var(--mist-icon-pip); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.fullscreen { --mist-icon: var(--mist-icon-fullscreen); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.fullscreen_exit { --mist-icon: var(--mist-icon-fullscreen-exit); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.replay { --mist-icon: var(--mist-icon-replay); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.get_app { --mist-icon: var(--mist-icon-download); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.theaters { --mist-icon: var(--mist-icon-trailer); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.explore { --mist-icon: var(--mist-icon-instant-mix); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.shuffle { --mist-icon: var(--mist-icon-shuffle); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.delete { --mist-icon: var(--mist-icon-delete); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.stop { --mist-icon: var(--mist-icon-stop); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.check { --mist-icon: var(--mist-icon-check); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.call_split { --mist-icon: var(--mist-icon-split); }
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.more_vert { --mist-icon: var(--mist-icon-more); }
   .osdHeader .headerBackButton .material-icons.arrow_back { --mist-icon: var(--mist-icon-back); }
   .osdHeader .headerBackButton .material-icons.chevron_left { --mist-icon: var(--mist-icon-back-safari); }
-  .cardOverlayFab-primary .material-icons.play_arrow,
-  .detailButton .material-icons.play_arrow { --mist-icon: var(--mist-icon-play); }
   /* a favourite fills its heart */
-  .videoOsdBottom .ratingbutton-icon-withrating.favorite { --mist-icon: var(--mist-icon-heart-filled); }
-  .videoOsdBottom .material-icons.play_arrow::before,
-  .videoOsdBottom .material-icons.pause::before,
-  .videoOsdBottom .material-icons.skip_previous::before,
-  .videoOsdBottom .material-icons.skip_next::before,
-  .videoOsdBottom .material-icons.fast_rewind::before,
-  .videoOsdBottom .material-icons.fast_forward::before,
-  .videoOsdBottom .material-icons.undo::before,
-  .videoOsdBottom .material-icons.redo::before,
-  .videoOsdBottom .material-icons.fiber_manual_record::before,
-  .videoOsdBottom .material-icons.favorite::before,
-  .videoOsdBottom .material-icons.closed_caption::before,
-  .videoOsdBottom .material-icons.audiotrack::before,
-  .videoOsdBottom .material-icons.volume_up::before,
-  .videoOsdBottom .material-icons.volume_off::before,
-  .videoOsdBottom .material-icons.settings::before,
-  .videoOsdBottom .material-icons.airplay::before,
-  .videoOsdBottom .material-icons.picture_in_picture_alt::before,
-  .videoOsdBottom .material-icons.fullscreen::before,
-  .videoOsdBottom .material-icons.fullscreen_exit::before,
-  .osdHeader .headerBackButton .material-icons.arrow_back::before,
-  .osdHeader .headerBackButton .material-icons.chevron_left::before,
-  .cardOverlayFab-primary .material-icons.play_arrow::before,
-  .detailButton .material-icons.play_arrow::before {
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons.favorite.ratingbutton-icon-withrating { --mist-icon: var(--mist-icon-heart-filled); }
+
+  :is(.videoOsdBottom, .detailButton, .cardOverlayButton) .material-icons:is(.play_arrow, .pause, .skip_previous, .skip_next, .fast_rewind, .fast_forward, .undo, .redo, .fiber_manual_record, .favorite, .closed_caption, .audiotrack, .volume_up, .volume_off, .settings, .airplay, .picture_in_picture_alt, .fullscreen, .fullscreen_exit, .replay, .get_app, .theaters, .explore, .shuffle, .delete, .stop, .check, .call_split, .more_vert)::before,
+  .osdHeader .headerBackButton .material-icons:is(.arrow_back, .chevron_left)::before {
     content: "" !important;
     display: block;
     width: 1em;
