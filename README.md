@@ -36,7 +36,7 @@ The older jsDelivr imports (`https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-
 - Clean rounded posters, with the watched badge and progress bar clipped inside the corner.
 - A consistent page gutter and spacing scale, so rows and titles share one left edge.
 - Soft rounded audio and subtitle pickers.
-- Lucide line icons in the video player, on movie and show page buttons, and on poster buttons.
+- Lucide line icons throughout: the player, buttons, menus, header, settings and dashboard. To change one, edit [`tools/icon-map.txt`](tools/icon-map.txt) and run `python3 tools/icons.py`.
 
 **Movie and show pages** (desktop and TV)
 - The poster is sized to fit the first screen, with the title aligned to its top edge.
