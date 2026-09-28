@@ -3,7 +3,10 @@
 # 10 minutes (jsDelivr allows 7 days).
 #   main:    https://gbrouwerpower.github.io/jellyfin-mist-theme/mist.css
 #   testing: https://gbrouwerpower.github.io/jellyfin-mist-theme/testing/mist.css
-# Both files are rebuilt on every run, whichever branch was pushed.
+# Both files are rebuilt on every run, whichever branch was pushed, and
+# committed to the gh-pages branch, which Pages serves. (Deploying the
+# files directly names each deployment after the pushed commit, so after
+# a fast-forward merge the second deploy was dropped as a duplicate.)
 name: Publish to GitHub Pages
 
 on:
@@ -12,9 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
@@ -23,9 +24,6 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -36,9 +34,12 @@ jobs:
           git show origin/main:mist.css > _site/mist.css
           git show origin/testing:mist.css > _site/testing/mist.css
           touch _site/.nojekyll
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: _site
-      - id: deploy
-        uses: actions/deploy-pages@v5
+      - name: Commit them to gh-pages
+        working-directory: _site
+        run: |
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Publish main $(git -C .. rev-parse --short origin/main) and testing $(git -C .. rev-parse --short origin/testing)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
