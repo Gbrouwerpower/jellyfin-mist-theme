@@ -332,6 +332,24 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .card-hoverable:hover .cardScalable { box-shadow: var(--mist-shadow); }
 .card-hoverable:hover .cardScalable::after { box-shadow: inset 0 0 0 1px var(--mist-line-strong); }
 
+/* poster play button: a frosted circle with a sky hairline that fills
+   with sky when hovered, instead of Jellyfin's black circle that grows */
+.cardOverlayContainer .cardOverlayFab-primary {
+  background-color: rgba(16, 21, 29, 0.55) !important;
+  color: var(--mist-text) !important;
+  box-shadow: inset 0 0 0 1.5px rgba(156, 203, 240, 0.55), 0 4px 14px -4px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transform: none !important;
+  transition: background-color .2s var(--mist-ease), color .2s var(--mist-ease), box-shadow .2s var(--mist-ease) !important;
+}
+.cardOverlayContainer .cardOverlayFab-primary:hover {
+  background-color: rgba(156, 203, 240, 0.92) !important;
+  color: var(--mist-on-sky) !important;
+  box-shadow: inset 0 0 0 1.5px var(--mist-sky-hover), 0 0 0 6px var(--mist-sky-soft), 0 0 22px rgba(156, 203, 240, 0.45);
+}
+.cardOverlayFab-primary .cardOverlayButtonIcon { background: none !important; color: inherit !important; }
+
 /* Devices with animations off (the Xbox app) get Jellyfin's fallback
    focus style: a thick transparent border on every poster, which let
    the poster background show as a band inside the focus ring. The sky
