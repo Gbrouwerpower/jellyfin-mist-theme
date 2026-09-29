@@ -36,6 +36,7 @@ The older jsDelivr imports (`https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-
 - Clean rounded posters, with the watched badge and progress bar clipped inside the corner.
 - A consistent page gutter and spacing scale, so rows and titles share one left edge.
 - Soft rounded audio and subtitle pickers.
+- Material Symbols Rounded icons: Google's softer take on Jellyfin's own icons, outlined, with filled play controls, stars and favourites.
 
 **Movie and show pages** (desktop and TV)
 - The poster is sized to fit the first screen, with the title aligned to its top edge.

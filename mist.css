@@ -1,12 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block");
 
 /* =====================================================================
    MIST — a refined, pastel-blue theme for Jellyfin Web 12.x (works on 10.11 too)
    Install: paste this into Dashboard → Branding → Custom CSS (server-wide)
             or Settings → Display → Custom CSS (just you):
      @import url("https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-mist-theme@main/mist.css");
-   If pasting this whole file instead, keep the font @import on the very
-   first line of the box. Either way, remove any other theme (e.g. the
+   If pasting this whole file instead, keep the two font @imports on the
+   very first lines of the box. Either way, remove any other theme (e.g. the
    old amber "Nocturne") so they don't fight.
    Set each client's Theme to "Dark".
    Contrast (WCAG 2.2): text 16:1, muted 8.9:1, sky accent 10.6:1,
@@ -663,6 +664,22 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   box-shadow: 0 0 0 5px rgba(156, 203, 240, 0.35);
 }
 .mdl-slider-container:focus-within .mdl-slider-background-flex { transform: scaleY(1.6); }
+
+/* ---------- Icons ----------
+   Material Symbols Rounded, Google's softer successor to Jellyfin's
+   Material Icons. It shares their codepoints and ligature names, so
+   swapping the font redraws every font icon; anything it lacks falls
+   back to Jellyfin's own font. Icons are outlined, except transport
+   controls, stars and a favourite's heart, which fill. MUI's SVG icons
+   (a few React screens) keep Jellyfin's drawing. */
+.material-icons {
+  font-family: "Material Symbols Rounded", "Material Icons" !important;
+  font-variation-settings: "FILL" 0;
+}
+.material-icons:is(.play_arrow, .pause, .stop, .skip_previous, .skip_next, .fast_rewind, .fast_forward, .play_circle_filled, .pause_circle_filled, .fiber_manual_record, .star),
+.material-icons.favorite.ratingbutton-icon-withrating { font-variation-settings: "FILL" 1; }
+/* the one icon Jellyfin uses whose codepoint Symbols dropped */
+.material-icons.info_outline::before { content: "\e88e"; }
 
 /* ---------- Login ---------- */
 #loginPage .manualLoginForm {
