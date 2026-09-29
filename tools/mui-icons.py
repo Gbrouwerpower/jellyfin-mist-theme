@@ -37,17 +37,20 @@ for line in MAP.read_text().splitlines():
     if line:
         rows.append((line[0], line[1], "fill" in line[2:]))
 
-sel = ", ".join(f'[data-testid="{mui}Icon"]' for mui, _, _ in rows)
+# a plain selector list, not :is(): Jellyfin Media Player's Chromium 87
+# drops any rule that uses it
+sel = ",\n  ".join(f'.MuiSvgIcon-root[data-testid="{mui}Icon"]' for mui, _, _ in rows)
+kids = ",\n  ".join(f'.MuiSvgIcon-root[data-testid="{mui}Icon"] > *' for mui, _, _ in rows)
 out = [START, "@supports ((mask-image: none) or (-webkit-mask-image: none)) {"]
 for mui, name, fill in rows:
     out.append(f'  .MuiSvgIcon-root[data-testid="{mui}Icon"] {{ --mist-icon: {fetch(name, fill)}; }}')
 out += [
-    f"  .MuiSvgIcon-root:is({sel}) {{",
+    f"  {sel} {{",
     "    background-color: currentColor;",
     "    -webkit-mask: var(--mist-icon) center / contain no-repeat;",
     "    mask: var(--mist-icon) center / contain no-repeat;",
     "  }",
-    f"  .MuiSvgIcon-root:is({sel}) > * {{ visibility: hidden; }}",
+    f"  {kids} {{ visibility: hidden; }}",
     "}",
     END,
 ]
