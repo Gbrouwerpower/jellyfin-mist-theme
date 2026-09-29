@@ -41,6 +41,7 @@ The older jsDelivr imports (`https://cdn.jsdelivr.net/gh/Gbrouwerpower/jellyfin-
 **Movie and show pages** (desktop and TV)
 - The poster is sized to fit the first screen, with the title aligned to its top edge.
 - Info, audio/subtitles and the description sit beside the poster.
+- Play and the buttons beside it are round, icon-only circles.
 - Shows keep Next Up, Seasons and the Episodes list beside the description.
 - Cast & Crew, More Like This and other rows start just below the fold, full width.
 - Tags and credits move to the very bottom, so there are fewer controller stops.

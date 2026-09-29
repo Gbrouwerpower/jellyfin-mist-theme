@@ -399,7 +399,18 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   border-color: var(--mist-line-strong) !important;
   border-radius: 4px;
 }
-.detailButton { border-radius: 999px; transition: background-color .15s var(--mist-ease); }
+/* Play and the buttons beside it: icon-only circles. Jellyfin pads them
+   wider than tall, which turned the round corners into ovals. */
+.detailButton {
+  width: 3em;
+  height: 3em;
+  min-width: 0;
+  flex: none;
+  padding: 0 !important;
+  border-radius: 50%;
+  transition: background-color .15s var(--mist-ease);
+}
+.detailButton-text { display: none !important; }
 .detailButton:hover { background: var(--mist-surface-3); }
 .detailButton.btnPlay, .mainDetailButtons .btnPlay {
   background: var(--mist-sky) !important;
