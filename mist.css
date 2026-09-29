@@ -627,6 +627,36 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .videoOsdBottom .buttons { padding: 0 !important; margin-top: 4px; }
 .osdTextContainer, .osdMediaInfo { color: var(--mist-text) !important; }
 
+/* the short fade leaves the title and times over the picture: a soft
+   shadow keeps them readable on bright scenes */
+.videoOsdBottom .osdTextContainer,
+.videoOsdBottom .osdTimeText,
+.skinHeader.osdHeader .pageTitle { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 0, 0, 0.35); }
+
+/* times beside the seek bar: fixed-width digits and a set minimum, so
+   the bar doesn't shift as they tick */
+.videoOsdBottom .osdPositionText,
+.videoOsdBottom .osdDurationText,
+.videoOsdBottom .osdTimeText { font-variant-numeric: tabular-nums; }
+.videoOsdBottom .osdPositionText,
+.videoOsdBottom .osdDurationText { min-width: 7ch; white-space: nowrap; }
+.videoOsdBottom .osdPositionText { text-align: right; }
+.videoOsdBottom .osdDurationText { text-align: left; }
+
+/* desktop: hovered controls fill sky like every other desktop button
+   (the general faint wash vanished over video) */
+.layout-desktop .videoOsdBottom .paper-icon-button-light:hover:not(:disabled),
+.layout-desktop .skinHeader.osdHeader .paper-icon-button-light:hover:not(:disabled) {
+  background-color: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+}
+
+/* TV: the focus ring sits straight on the sky fill; the slate gap used
+   on pages showed as a dark band over the picture */
+.layout-tv .videoOsdBottom .paper-icon-button-light.show-focus:focus {
+  box-shadow: 0 0 0 3px #FFFFFF !important;
+}
+
 /* seek bar in the palette */
 .mdl-slider-background-lower { background-color: var(--mist-sky) !important; }
 .mdl-slider-background-upper { background-color: rgba(232, 238, 246, 0.25) !important; }
