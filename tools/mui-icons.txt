@@ -1,0 +1,116 @@
+# MUI icon -> Material Symbols Rounded icon, one per line. Used by tools/mui-icons.py.
+# Jellyfin's React screens draw MUI SVG icons (<svg data-testid="NAMEIcon">),
+# which the icon font can't reach. Add " fill" to draw the filled version.
+# Symbol names: https://fonts.google.com/icons?icon.style=Rounded
+
+AccessTime access_time
+AccountCircle account_circle
+Add add
+Album album
+Analytics analytics
+AppSettingsAlt app_settings_alt
+ArrowBack arrow_back
+ArrowDownward arrow_downward
+ArrowDropDown arrow_drop_down
+ArrowForwardIosSharp arrow_forward_ios
+ArrowUpward arrow_upward
+Article article
+Backup backup
+Book book
+CallSplit call_split
+Cast cast
+CastConnected cast_connected
+Check check
+ChevronRight chevron_right
+Clear clear
+Close close
+ClosedCaption closed_caption
+Comment comment
+Computer computer
+ContentCopy content_copy
+Dashboard dashboard
+Delete delete
+Devices devices
+Download download
+DownloadDone download_done
+DragHandle drag_handle
+Dvr dvr
+Edit edit
+ExpandLess expand_less
+ExpandMore expand_more
+Explore explore
+Extension extension
+Favorite favorite fill
+FiberManualRecord fiber_manual_record fill
+FiberSmartRecord fiber_smart_record
+FileDownload file_download
+FilterAlt filter_alt
+Folder folder
+GroupAdd group_add
+Groups groups
+HelpOutline help
+Home home
+Image image
+ImageNotSupported image_not_supported
+Info info
+Lan lan
+LibraryAdd library_add
+LiveTv live_tv
+LocationSearching location_searching
+Logout logout
+Memory memory
+Menu menu
+MoreVert more_vert
+Movie movie
+MusicNote music_note
+MusicVideo music_video
+NavigateBefore navigate_before
+NavigateNext navigate_next
+Notifications notifications
+OpenInNew open_in_new
+Palette palette
+Pause pause fill
+People people
+PermMedia perm_media
+PersonAdd person_add
+PersonOff person_off
+PersonRemove person_remove
+PhonelinkLock phonelink_lock
+Photo photo
+PhotoAlbum photo_album
+PlayArrow play_arrow fill
+PlayCircle play_circle fill
+PlaylistAdd playlist_add
+PowerSettingsNew power_settings_new
+Queue queue
+Quiz quiz
+Refresh refresh
+RemoveCircle remove_circle
+Replay replay
+RestartAlt restart_alt
+Restore restore
+Schedule schedule
+Search search
+Settings settings
+SettingsRemote settings_remote
+Shuffle shuffle
+Smartphone smartphone
+SortByAlpha sort_by_alpha
+Star star fill
+Stop stop fill
+StopCircle stop_circle fill
+Storage storage
+Tablet tablet
+Theaters theaters
+Tune tune
+Tv tv
+Upload upload
+Usb usb
+VideoLibrary video_library
+Videocam videocam
+ViewList view_list
+ViewModule view_module
+Visibility visibility
+VisibilityOff visibility_off
+VpnKey vpn_key
+Warning warning
