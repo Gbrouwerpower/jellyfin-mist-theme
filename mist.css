@@ -653,9 +653,33 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 
 /* TV: the focus ring sits straight on the sky fill; the slate gap used
    on pages showed as a dark band over the picture */
-.layout-tv .videoOsdBottom .paper-icon-button-light.show-focus:focus {
+.layout-tv .videoOsdBottom .paper-icon-button-light.show-focus:focus,
+.layout-tv .emby-button.skip-button.show-focus:focus {
   box-shadow: 0 0 0 3px #FFFFFF !important;
 }
+
+/* Skip Intro / Skip Credits: a pill in the palette instead of Jellyfin's
+   square grey box. It floats over the picture, so the fill is near-solid. */
+.skip-button {
+  background-color: rgba(23, 29, 40, 0.92) !important;
+  color: var(--mist-text) !important;
+  border: 1px solid var(--mist-line-strong) !important;
+  border-radius: 999px !important;
+  padding: 0.6em 1.1em 0.6em 1.4em !important;
+  font-weight: 600 !important;
+  gap: 0.35em !important;
+  box-shadow: var(--mist-shadow);
+}
+.skip-button .material-icons { color: var(--mist-sky); }
+.layout-desktop .skip-button:hover {
+  background-color: var(--mist-sky) !important;
+  color: var(--mist-on-sky) !important;
+  border-color: transparent !important;
+}
+.layout-desktop .skip-button:hover .material-icons,
+.layout-tv .skip-button:focus .material-icons { color: inherit; }
+.layout-tv .skip-button { margin-right: var(--mist-gutter) !important; }
+.layout-tv .skip-button:focus { border-color: transparent !important; }
 
 /* seek bar in the palette */
 .mdl-slider-background-lower { background-color: var(--mist-sky) !important; }
@@ -668,6 +692,12 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   background: var(--mist-surface-3) !important;
   color: var(--mist-text) !important;
   border-radius: var(--mist-radius) !important;
+}
+/* trickplay and chapter previews: clipped to the bubble's rounded
+   corners (Jellyfin draws them square) */
+.sliderBubble .chapterThumbContainer {
+  border-radius: var(--mist-radius);
+  overflow: hidden;
 }
 
 /* seek bar: no rectangle when it's selected (the general focus ring drew a
@@ -1515,7 +1545,6 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
-
 /* tidy the gap between the pickers and the description */
 .detailSectionContent > .itemGenres:empty { display: none; }
 .itemDetailPage .tagline { margin-top: 0 !important; }
