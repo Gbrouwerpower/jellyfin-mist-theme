@@ -1820,15 +1820,19 @@ html.layout-desktop { font-size: 17px; }
 .cardPadder { background-color: var(--mist-surface-2) !important; }
 
 /* detail pages */
-/* the backdrop fades into the page instead of ending on a hard line */
-.layout-desktop .itemDetailPage .itemBackdrop::after {
+/* the backdrop fades into the page instead of ending on a hard line.
+   The fade hangs off the top of the page below rather than the backdrop
+   itself: Jellyfin fades the backdrop in, which took the fade with it,
+   so it started out as a hard edge. */
+.layout-desktop .itemDetailPage .detailPageWrapperContainer::after {
   content: "";
   position: absolute;
-  inset: auto 0 0 0;
-  height: 30%;
+  inset: auto 0 100% 0;
+  height: calc(0.3 * var(--mist-detail-top));   /* 30% of the backdrop */
   background: linear-gradient(180deg, rgba(16, 21, 29, 0), var(--mist-bg));
   pointer-events: none;
 }
+.layout-desktop .itemDetailPage .detailLogo { z-index: 1; }   /* stays above the fade */
 /* see-through header: on a movie or show page the header drops its
    fill so the backdrop shows through, keeping a soft fade behind the
    buttons. The backdrop reaches up behind it; its negative margin
